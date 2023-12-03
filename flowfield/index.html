@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flowfield - Finch</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="/logo/logo_maximized.png" type="image/x-icon">
+
+</head>
+<body>
+    <a href="/index.html">
+        <img src="/assets/back.png" alt="Back arrow" id="backArrow">
+    </a>
+    <p id="debugInfo"></p>
+
+    <div id="customisationMenu">
+        <label for="imgImage">Image:</label>
+        <input type="file" id="imgImage" name="image" onclick="this.value=null;" accept="image/*">
+        <br>
+        <label for="inputParticleCount">Amount of particles:</label>
+        <input type="number" name="particleCount" id="inputParticleCount" value="4000"> 
+        <br>
+        <button id="btnUpdateSim">Update</button>
+        <br>
+        <br>
+        <label for="colBackgroundColor">Background color:</label>
+        <input type="color" name="backgroundColor" id="colBackgroundColor" value="#141414">
+        <br>
+        <br>
+        <label for="btnShowDebuginfo">Show debug info:</label>
+        <input type="checkbox" name="debug" id="btnShowDebuginfo">
+        <br>
+        <p id="pToggleInfo">Press M to toggle this menu</p>
+    </div>
+
+    <canvas id="mainCanvas"></canvas>
+    <script type="module" src="sketch.js"></script>
+    <script type="module" src="lib/vec2.js"></script>
+    <script type="module" src="particle.js"></script>
+    <script type="module" src="simulation.js"></script>
+
+</body>
+</html>

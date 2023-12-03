@@ -1,0 +1,58 @@
+body {
+    padding: 0px;
+    margin: 0px;
+    background-color: black;
+    overflow: hidden;
+    /* background-color: rgb(20, 20, 20); */
+}
+
+#main {
+    /* box-shadow: 0 0 15px 4px rgb(67, 65, 92); */
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: grid;
+}
+
+#imageSelector {
+    display: none;
+}
+
+#mainCanvas, #textCanvas {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+#textCanvas {
+    z-index: 1;
+}
+
+#customisationMenu {
+    position: absolute;
+    top: 0%;
+    left: calc(100% - 300px);
+    color: white;
+    z-index: 1;
+    width: 300px;
+    background-color: rgba(125, 125, 125, 0.1);
+    padding: 10px;
+}
+
+#pToggleInfo {
+    margin: 0px;
+}
+
+#inputParticleCount {
+    width: 25%;
+}
+
+#backArrow {
+    margin: 20px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    width: 40px;
+    height: 40px;
+}
