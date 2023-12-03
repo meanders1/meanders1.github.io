@@ -41,9 +41,10 @@ async function draw() {
 		let debugEl = document.getElementById("debugInfo");
 		if(isDebug) {
 			const frameTime = performance.now() - frameStart;
+			debugEl.style.display = "block";
 			debugEl.innerHTML = "Frametime: " + frameTime + "ms";
 		} else {
-			debugEl.innerHTML = "";
+			debugEl.style.display = "none";
 		}
 	}
 }
