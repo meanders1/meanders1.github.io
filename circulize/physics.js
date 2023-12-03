@@ -1,8 +1,7 @@
 import { Vec2, tmpvec2 } from "./lib/linnet/vec2.js";
 import { width, height, img } from "./scripts.js";
 import { Timer } from "./lib/extra.js";
-import { Emitter } from "./emitter.js";
-import { Tools } from "./lib/extra.js";
+import { Tools, Random } from "./lib/extra.js";
 
 const dt = 0.1;//0.14;
 function constrain(v, min, max) {
@@ -58,11 +57,7 @@ class Solver {
             const CIRCLE_RADIUS = 1;
             const NUM_PARTICLES = particleCount; 
 
-            // The formula for the packing density was found by oberserving 
-            // that with 1358 particles a packing density of 0.78 worked well,
-            // and that with 4000 particles, a packing denisty of 0.63 worked well. 
-            // The second simulation was mostly limited by the stability of the simulation. 
-
+            // The below densities are the best ones for their repective particle counts
             // <=13 - 0.66
             //  100 - 0.76
             //  300 - 0.79
@@ -434,5 +429,50 @@ class PhysicsObject {
     }
 
 }
+
+
+class Emitter {
+    constructor(radius, seed, minRadius, maxRadius, numParticles, particles) {
+        this.pos = new Vec2(0, -radius * 0.8);
+        this.rotSpeed = 0.03;
+        this.emitSpeed = radius / 30;
+        this.rng = new Random(seed);
+        this.minPR = minRadius;
+        this.maxPR = maxRadius;
+        if (arguments.length > 4) {
+            this.maxParticles = numParticles;
+        }
+        if (arguments.length == 6) {
+            this.particles = particles;
+        }
+        this.amtP = 0;
+        this.stopped = false;
+    }
+
+    nextParticle() {
+        if (this.maxParticles != undefined && this.amtP >= this.maxParticles) {
+            this.stopped = true;
+            return undefined;
+        }
+
+        this.pos.rotate(this.rotSpeed);
+        let p = new PhysicsObject(
+            this.pos.clone(),
+            this.rng.nextFloat() * (this.maxPR - this.minPR) + this.minPR
+        );
+        let lastposOffset = this.pos.clone();
+        lastposOffset.normalize().multN(this.emitSpeed);
+        p.lastPos = Vec2.addV(this.pos, lastposOffset);
+
+        // Assign color
+        if (this.particles != undefined) {
+            p.color = this.particles[this.amtP].color;
+        }
+
+        this.amtP++;
+        return p;
+    }
+}
+
 
 export { Solver, PhysicsObject };

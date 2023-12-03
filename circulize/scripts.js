@@ -3,6 +3,7 @@ import { Solver } from "./physics.js";
 import { Vec2 } from "./lib/linnet/vec2.js";
 
 const SELECTION_TEXT = "Click to select image. Note: nonsquare images will be cropped";
+const WORKING_TEXT = "Working...";
 
 const SEED = 1450102021020310231;
 const MAX_FONT_SIZE = 100;
@@ -51,7 +52,7 @@ function setup() {
         inputEl.click();
     });
     
-    renderer = new Renderer({canvas: mainCanvas, textureUrl: "./assets/circle512.png", maxQuads: PARTICLE_COUNT});
+    renderer = new Renderer({canvas: mainCanvas, textureUrl: "./assets/circle512.png", maxQuads: PARTICLE_COUNT+3}); // +3 because containing circle, and emitter is also drawn
     
     const inputEl = document.getElementById("imageSelector");
     inputEl.addEventListener("change", ()=> {
@@ -206,7 +207,7 @@ function selectImage(input) {
     if (!(input.files && input.files[0])) return;
 
     solver = undefined;
-    displayText("Working...");
+    displayText(WORKING_TEXT);
 
     setTimeout(() => {
         const file = input.files[0];
@@ -236,15 +237,9 @@ function setupUIScripts() {
     });
     
     const applyButtonEl = document.getElementById("btnApply");
-    applyButtonEl.addEventListener("click", () => {
-        if(img == undefined) {
-            const inputEl = document.querySelector("#imageSelector");
-            inputEl.click();
-        } else {
-            solver = new Solver(SEED, PARTICLE_COUNT);
-            updating = true;
-            draw();
-        }
+    applyButtonEl.addEventListener("click", () => { 
+        const inputEl = document.querySelector("#imageSelector");
+        inputEl.click();
     });
 
     window.onkeyup = (e) => {
