@@ -134,7 +134,7 @@ function drawDebugInfo(drawTime, updateTime, frameTime) {
             el = document.createElement("p");
             document.body.appendChild(el);
             el.style.position = "absolute";
-            el.style.top = "0px";
+            el.style.top = "100px";
             el.style.left = "0px";
             el.style.backgroundColor = "rgba(255, 255, 255, 0.8)"
             el.id = "debug"
@@ -145,7 +145,7 @@ function drawDebugInfo(drawTime, updateTime, frameTime) {
         let cellSizePx = cellSize * Math.min(width/2, height/2);
         let amtCellsX = solver.grid.amtCellsX;
         let amtCellsY = solver.grid.amtCellsY;
-        el.innerHTML = "FPS: " + Math.floor(1000/frameTime) + "<br>";
+        el.innerHTML = "Frametime: " + frameTime + "<br>";
         el.innerHTML += "Grid:<br>"; 
         el.innerHTML += " - " + amtCellsX + "x" + amtCellsY + " cells<br>";
         el.innerHTML += " - Cellsize: " + (solver.grid.largestRadius * 2) + " (" + Math.floor(cellSizePx) + "px)<br>";
@@ -240,6 +240,11 @@ function setupUIScripts() {
     applyButtonEl.addEventListener("click", () => { 
         const inputEl = document.querySelector("#imageSelector");
         inputEl.click();
+    });
+
+    const debugBtnEl = document.getElementById("inputDebug");
+    debugBtnEl.addEventListener("click", () => {
+        debug = debugBtnEl.checked;
     });
 
     window.onkeyup = (e) => {
