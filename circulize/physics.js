@@ -1,7 +1,6 @@
 import { Vec2, tmpvec2 } from "./lib/linnet/vec2.js";
 import { width, height, img } from "./scripts.js";
-import { Timer } from "./lib/extra.js";
-import { Tools, Random } from "./lib/extra.js";
+import { Timer, Tools, Random } from "./lib/extra.js";
 
 const dt = 0.1;//0.14;
 function constrain(v, min, max) {
@@ -57,7 +56,7 @@ class Solver {
             const CIRCLE_RADIUS = 1;
             const NUM_PARTICLES = particleCount; 
 
-            // The below densities are the best ones for their repective particle counts
+            // The below densities are found to be the best ones for their repective particle counts. Variation was 0.01
             // <=13 - 0.66
             //  100 - 0.76
             //  300 - 0.79
@@ -237,7 +236,6 @@ class Solver {
     }
 
     applyGravity() {
-        // const gravity = new Vec2(0, 1 / 120);
         const gravity = new Vec2(0, -1 / 40);
         for(let obj of this.objects) {
             tmpvec2.set(gravity);
@@ -312,8 +310,8 @@ class Solver {
         const constraintRadius = this.constraintRadius;
         for(let obj of this.objects) {
             const toObj = Vec2.subV(obj.pos, constraintPos);
-            const dist = toObj.len();
-            if(dist > constraintRadius - obj.radius) {
+            const distSq = toObj.lenSq();
+            if(distSq > (constraintRadius - obj.radius)*(constraintRadius - obj.radius)) {
                 const n = Vec2.normalized(toObj);
                 obj.pos = Vec2.addV(constraintPos, Vec2.multN(n, constraintRadius - obj.radius));
             }
@@ -429,7 +427,6 @@ class PhysicsObject {
     }
 
 }
-
 
 class Emitter {
     constructor(radius, seed, minRadius, maxRadius, numParticles, particles) {
