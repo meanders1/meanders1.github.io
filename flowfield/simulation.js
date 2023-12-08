@@ -177,6 +177,7 @@ class Renderer {
         this.canvas.height = dimensions.h;
         
         if (!navigator.gpu) {
+            alert("WebGPU not supported on this browser.");
             throw new Error("WebGPU not supported on this browser.");
         }
     

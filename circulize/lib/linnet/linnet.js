@@ -155,7 +155,7 @@ class Renderer {
             return;
         }
         if(!descriptor.textureUrl) {
-            console.error("Descripto is invalid. \"textureUrl\" must be defined");
+            console.error("Descriptor is invalid. \"textureUrl\" must be defined");
             return;
         }
         if(!descriptor.canvas) {
@@ -180,6 +180,7 @@ class Renderer {
     async init(quadCount) {
         this.doneInit = false;
         if (!navigator.gpu) {
+            alert("WebGPU not supported on this browser.");
             throw new Error("WebGPU not supported on this browser.");
         }
     
