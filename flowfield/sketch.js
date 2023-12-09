@@ -54,6 +54,10 @@ function resizeCanvas() {
 	let c = document.getElementById("mainCanvas");
 	c.width = dimensions.w;
 	c.height = dimensions.h;
+	c.style.width = dimensions.w + "px";
+	c.style.height = dimensions.h + "px";
+
+	renderer.windowResized();
 }
 
 function windowResized() {

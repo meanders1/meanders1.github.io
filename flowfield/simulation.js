@@ -168,6 +168,16 @@ class Renderer {
         this.doneInit = false;
     }
 
+    async windowResized() {
+        this.aaTexture = this.device.createTexture({
+            size: [this.canvas.width, this.canvas.height],
+            sampleCount: 4,
+            format: navigator.gpu.getPreferredCanvasFormat(),
+            usage: GPUTextureUsage.RENDER_ATTACHMENT,
+        });
+        this.aaView = this.aaTexture.createView();
+    }
+
     async init() {
         this.doneInit = false;
         this.canvas = document.getElementById("mainCanvas");
@@ -175,6 +185,8 @@ class Renderer {
 
         this.canvas.width = dimensions.w;
         this.canvas.height = dimensions.h;
+        this.canvas.style.width = dimensions.w + "px";
+        this.canvas.style.height = dimensions.h + "px";
         
         if (!navigator.gpu) {
             alert("WebGPU not supported on this browser.");
@@ -187,14 +199,22 @@ class Renderer {
         }
     
         this.device = await this.adapter.requestDevice();
-    
-        // Canvas configuration
         this.context = this.canvas.getContext("webgpu");
+    
         const canvasFormat = navigator.gpu.getPreferredCanvasFormat();
+        this.canvasFormat = canvasFormat;
         this.context.configure({
             device: this.device,
             format: canvasFormat,
         });
+
+        let shaderCode = await fetch("./shader.wgsl").then((response) => response.text());
+    
+        this.lineShaderModule = this.device.createShaderModule({
+            label: "Line shader",
+            code: shaderCode
+        });
+        
         const vertexBufferLayout = {
             arrayStride: FLOATS_PER_VERTEX * 4/*Byts per float32*/,
             attributes: [{
@@ -214,12 +234,6 @@ class Renderer {
             usage: GPUBufferUsage.VERTEX | GPUBufferUsage.COPY_DST,
         });
     
-        let shaderCode = await fetch("./shader.wgsl").then((response) => response.text());
-    
-        this.lineShaderModule = this.device.createShaderModule({
-            label: "Line shader",
-            code: shaderCode
-        });
     
         this.linePipeline = this.device.createRenderPipeline({
             label: "Line pipeline",
@@ -233,13 +247,24 @@ class Renderer {
                 module: this.lineShaderModule,
                 entryPoint: "fragmentMain",
                 targets: [{
-                    format: canvasFormat
+                    format: canvasFormat,
                 }]
             },
             primitive: {
                 topology: "line-list"
+            },
+            multisample: {
+                count: 4,
             }
         });
+
+        this.aaTexture = this.device.createTexture({
+            size: [this.canvas.width, this.canvas.height],
+            sampleCount: 4,
+            format: canvasFormat,
+            usage: GPUTextureUsage.RENDER_ATTACHMENT,
+        });
+        this.aaView = this.aaTexture.createView();
         this.doneInit = true;
     }
 
@@ -252,7 +277,8 @@ class Renderer {
 
         const pass = encoder.beginRenderPass({
             colorAttachments: [{
-                view: this.context.getCurrentTexture().createView(),
+                view: this.aaView,
+                resolveTarget: this.context.getCurrentTexture().createView(),
                 loadOp: "clear",
                 clearValue: [backgroundColor[0], backgroundColor[1], backgroundColor[2], 1],
                 storeOp: "store",

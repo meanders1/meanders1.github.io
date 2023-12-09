@@ -177,6 +177,23 @@ class Renderer {
         this.init(this.descriptor.maxQuads);
     }
 
+    async canvasResized() {
+        const sampleCount = 4;
+        this.doneInit = false;
+        if(this.descriptor.antialias) {
+            //Antialiasing
+            this.aaTexture = this.device.createTexture({
+                size: [this.canvas.width, this.canvas.height],
+                sampleCount: sampleCount,
+                format: navigator.gpu.getPreferredCanvasFormat(),
+                usage: GPUTextureUsage.RENDER_ATTACHMENT,
+            });
+            this.aaView = this.aaTexture.createView();
+        }
+
+        this.doneInit = true;
+    }
+
     async init(quadCount) {
         this.doneInit = false;
         if (!navigator.gpu) {

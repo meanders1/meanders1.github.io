@@ -191,6 +191,8 @@ function windowResized() {
     textCanvas.width = smallest;
     textCanvas.height = smallest;
 
+    renderer.canvasResized();
+
     if (solver == undefined) {
         displayText(SELECTION_TEXT);
     }
