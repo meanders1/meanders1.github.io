@@ -189,8 +189,8 @@ class Renderer {
         this.canvas.style.height = dimensions.h + "px";
         
         if (!navigator.gpu) {
-            alert("WebGPU not supported on this browser.");
-            throw new Error("WebGPU not supported on this browser.");
+            alert("WebGPU not supported in this browser. See https://github.com/gpuweb/gpuweb/wiki/Implementation-Status#implementation-status");
+            throw new Error("WebGPU not supported in this browser.");
         }
     
         this.adapter = await navigator.gpu.requestAdapter();

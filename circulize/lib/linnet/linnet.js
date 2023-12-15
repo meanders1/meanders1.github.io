@@ -197,8 +197,8 @@ class Renderer {
     async init(quadCount) {
         this.doneInit = false;
         if (!navigator.gpu) {
-            alert("WebGPU not supported on this browser.");
-            throw new Error("WebGPU not supported on this browser.");
+            alert("WebGPU not supported in this browser.");
+            throw new Error("WebGPU not supported in this browser.");
         }
     
         this.adapter = await navigator.gpu.requestAdapter();
