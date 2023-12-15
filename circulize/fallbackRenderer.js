@@ -8,7 +8,7 @@ class Renderer2D {
 
     startFrame() {
         this.context.reset();
-        this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
+        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.context.translate(this.canvas.width/2, this.canvas.height/2);
         this.context.scale(this.canvas.width/2, this.canvas.height/2);
     }

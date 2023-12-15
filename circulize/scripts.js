@@ -54,7 +54,7 @@ function setup() {
         inputEl.click();
     });
     
-    if(!navigator.gpu || true) {
+    if(!navigator.gpu) {
         renderer = new Renderer2D(mainCanvas);
         isWebGPURenderer = false;
         console.log("WebGPU is not available. Using '2d' renderer instead.");
@@ -103,7 +103,7 @@ function draw() {
                 renderer.draw(quads);
             } else {
                 renderer.startFrame();
-                renderer.circle(new Vec2(0, 0), 2, backgroundColor);
+                renderer.circle(new Vec2(0, 0), 1, backgroundColor);
                 for(let object of solver.objects){
                     renderer.circle(object.pos, object.radius, object.color);
                 }
