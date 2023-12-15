@@ -1,6 +1,7 @@
 import { Renderer, Quad } from "./lib/linnet/linnet.js"
 import { Solver } from "./physics.js";
-import { Vec2 } from "./lib/linnet/vec2.js";
+import { Vec2, tmpvec2 } from "./lib/linnet/vec2.js";
+import { Renderer2D } from "./fallbackRenderer.js";
 
 const SELECTION_TEXT = "Click to select image. Note: nonsquare images will be cropped";
 const WORKING_TEXT = "Working...";
@@ -20,6 +21,7 @@ let debug = false;
 let width, height;
 
 let renderer;
+let isWebGPURenderer;
 let textCanvasCtx;
 
 let updating = false;
@@ -52,8 +54,15 @@ function setup() {
         inputEl.click();
     });
     
-    renderer = new Renderer({canvas: mainCanvas, textureUrl: "./assets/circle512.png", maxQuads: PARTICLE_COUNT+3}); // +3 because containing circle, and emitter is also drawn
-    
+    if(!navigator.gpu || true) {
+        renderer = new Renderer2D(mainCanvas);
+        isWebGPURenderer = false;
+        console.log("WebGPU is not available. Using '2d' renderer instead.");
+    } else {
+        renderer = new Renderer({canvas: mainCanvas, textureUrl: "./assets/circle512.png", maxQuads: PARTICLE_COUNT+3}); // +3 because containing circle, and emitter is also drawn
+        isWebGPURenderer = true;
+    }
+
     const inputEl = document.getElementById("imageSelector");
     inputEl.addEventListener("change", ()=> {
         selectImage(inputEl);
@@ -65,12 +74,10 @@ function setup() {
 
 function draw() {
     window.requestAnimationFrame(draw);
-    
     const now = performance.now();
     const elapsed = now - previousTime;
 
     if (elapsed > fpsInterval) {
-
         previousTime = now - (elapsed % fpsInterval);
         
         let drawTime = 0;
@@ -83,16 +90,28 @@ function draw() {
         if (solver != undefined && updating) {
             
             let drawStart = performance.now();
-            let quads = [];
-            quads.push(containingCircle);
-            for(let object of solver.objects) {
-                quads.push(new Quad(object.pos, new Vec2(object.radius, object.radius), 0, object.color, new Vec2(0, 0)));
+            if(isWebGPURenderer) { 
+                let quads = [];
+                quads.push(containingCircle);
+                for(let object of solver.objects) {
+                    quads.push(new Quad(object.pos, new Vec2(object.radius, object.radius), 0, object.color, new Vec2(0, 0)));
+                }
+                if (!solver.emitter.stopped) {
+                    quads.push(new Quad(solver.emitter.pos, new Vec2(0.02, 0.02), 0, [1, 0, 0, 1]));
+                    quads.push(new Quad(solver.emitter.pos, new Vec2(0.01, 0.01), 0, [1, 1, 1, 1]));
+                }
+                renderer.draw(quads);
+            } else {
+                renderer.startFrame();
+                renderer.circle(new Vec2(0, 0), 2, backgroundColor);
+                for(let object of solver.objects){
+                    renderer.circle(object.pos, object.radius, object.color);
+                }
+                if(!solver.emitter.stopped) {
+                    renderer.circle(solver.emitter.pos, 0.02, [1, 0, 0, 1]);
+                    renderer.circle(solver.emitter.pos, 0.01, [1, 1, 1, 1]);
+                }
             }
-            if (!solver.emitter.stopped) {
-                quads.push(new Quad(solver.emitter.pos, new Vec2(0.02, 0.02), 0, [1, 0, 0, 1]));
-                quads.push(new Quad(solver.emitter.pos, new Vec2(0.01, 0.01), 0, [1, 1, 1, 1]));
-            }
-            renderer.draw(quads);
             drawTime = performance.now() - drawStart;
             
             let updateStart = performance.now();
