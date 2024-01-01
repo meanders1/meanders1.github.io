@@ -28,6 +28,10 @@ class Renderer2D {
         this.context.arc(x, y, radius, 0, 2*Math.PI);
         this.context.fill();
     }
+
+    canvasResized() {
+        
+    }
 }
 
 export {Renderer2D};
