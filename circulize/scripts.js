@@ -54,14 +54,16 @@ function setup() {
         inputEl.click();
     });
     
-    if(!navigator.gpu) {
-        renderer = new Renderer2D(mainCanvas);
-        isWebGPURenderer = false;
-        console.log("WebGPU is not available. Using '2d' renderer instead.");
-    } else {
-        renderer = new Renderer({canvas: mainCanvas, textureUrl: "./assets/circle512.png", maxQuads: PARTICLE_COUNT+3}); // +3 because containing circle, and emitter is also drawn
-        isWebGPURenderer = true;
-    }
+    renderer = new Renderer2D(mainCanvas);
+    isWebGPURenderer = false;
+    // if(!navigator.gpu) {
+    //     renderer = new Renderer2D(mainCanvas);
+    //     isWebGPURenderer = false;
+    //     console.log("WebGPU is not available. Using '2d' renderer instead.");
+    // } else {
+    //     renderer = new Renderer({canvas: mainCanvas, textureUrl: "./assets/circle512.png", maxQuads: PARTICLE_COUNT+3}); // +3 because containing circle, and emitter is also drawn
+    //     isWebGPURenderer = true;
+    // }
 
     const inputEl = document.getElementById("imageSelector");
     inputEl.addEventListener("change", ()=> {
