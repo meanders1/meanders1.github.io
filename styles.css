@@ -1,11 +1,4 @@
-#circulize, #flowfield {
-    width: 50%;
-    height: 100vh;
-    float: left;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
+#circulize, #flowfield, #wordOfElements {
     background-size:cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -13,27 +6,42 @@
 }
 
 #circulize {
+    grid-area: circulize;
     background-image: url("screenshot_Circulize.png");
 }
 
 #flowfield {
+    grid-area: flowfield;
     background-image: url("screenshot_Flowfield.png");
+}
+
+#wordOfElements {
+    grid-area: wordOfElements;
 }
 
 body {
     margin: 0;
     padding: 0;
     background-color: black;
+    
 }
 
-a {
-    font-size: xxx-large;
-    font-family: Consolas;
+#projectsList {
+    display: grid;
+    height: 100vh;
+    grid-template-areas: 
+        "circulize flowfield"
+        "circulize flowfield"
+        "wordOfElements wordOfElements";
+}
+.projectLink {
+    font-size: 3vw;
+    font-family: "JetBrains Mono", Consolas;
     text-decoration: none;
     color: white;
 }
 
-a:hover {
+.projectLink:hover {
     text-decoration: underline;
 }
 

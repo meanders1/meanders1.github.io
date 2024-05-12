@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
+    <script type="module" src="https://pyscript.net/releases/2024.1.1/core.js"></script>
+</head>
+<body>
+    <a href="/index.html">
+        <img src="/assets/back.png" alt="Back arrow" id="backArrow">
+    </a>
+    
+    <div id="content">
+        <h1 class="hcenter">Word of Elements!</h1>
+        <p class="hcenter">Creates words by combining the symbols of chemical elements to form the desired word. For example: boat -> Boron(B) + Oxygen(O) + Astatine(At) = BOAt </p>
+        <p class="hcenter">Input your sentence below. All words that cannot be created from elements are replaced with a "_". For exampe: the boat -> _ BOAt</p>
+        <p class="hcenter">If the words are too long, the algorithm might be slow and the site can freeze.</p>
+        <input type="text" name="stringInput" id="stringInput">
+        <button id="btn" onclick="btnOnclick" py-click="find" >Construct!</button>
+        <p id="output" >The constructed sentence will appear here</p>
+        <script type="py" src="./main.py"></script>
+    </div>
+    <dialog id="loading">
+        <h1>Loading...</h1>
+    </dialog>
+    <script>
+        function btnOnclick(event) {
+            const output = document.getElementById("output");
+            out.innerHTML = "Constructing sentence...";
+        }
+    </script>
+    <script type="module">
+        const loading = document.querySelector("#loading");
+        addEventListener("py:ready", () => loading.close())
+        loading.showModal();
+    </script>
+</body>
+</html>
