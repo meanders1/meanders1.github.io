@@ -40,6 +40,16 @@ body {
     padding: 10px;
 }
 
+#customisationMenuIcon {
+    padding: 20px;
+    position: absolute;
+    top: 0%;
+    left: 100%;
+    transform: translate(-100%);
+    width: 30px;
+    display: none;
+}
+
 #pToggleInfo {
     margin: 0px;
 }

@@ -21,6 +21,7 @@ body {
     color: white;
     display: none;
 }
+
 #customisationMenu {
     position: absolute;
     top: 0%;
@@ -31,6 +32,17 @@ body {
     background-color: rgba(0, 0, 0, 0.6);
     padding: 10px;
 }
+
+#customisationMenuIcon {
+    padding: 20px;
+    position: absolute;
+    top: 0%;
+    left: 100%;
+    transform: translate(-100%);
+    width: 30px;
+    display: none;
+}
+
 #inputParticleCount {
     width: 25%;
 }
@@ -40,9 +52,11 @@ body {
     margin: 0px;
 
 }
+
 #pToggleInfo {
     margin: 0px;
 }
+
 #backArrow {
     margin: 20px;
     position: absolute;

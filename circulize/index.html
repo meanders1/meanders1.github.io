@@ -3,9 +3,10 @@
 <html>
     <head>
         <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Circulize</title>
         <link rel="icon" type="image/x-icon" href="/assets/logo_maximized.png">
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="./style.css">
     </head>
 
     <body>
@@ -23,8 +24,9 @@
             <input type="checkbox" id="inputDebug">
             <br>
             <p>Note: Not all configurations are guaranteed to be stable.</p>
-            <p id="pToggleInfo">Press M to close this menu</p>
+            <p id="pToggleInfo"><b onclick="toggleCustomisationMenu()">Press M</b> to close this menu</p>
         </div>
+        <img id="customisationMenuIcon" src="./assets/customisationMenuIcon.png" alt="Icon">
 
         <input id="imageSelector" onclick="this.value=null;" type="file" accept="image/*">
        
@@ -39,5 +41,6 @@
         <script type="module" src="lib/linnet/linnet.js"></script>
         <script type="module" src="lib/linnet/vec2.js"></script>
         <script type="module" src="fallbackRenderer.js"></script>
+        <script src="uiScripts.js"></script>
     <body>
 </html>

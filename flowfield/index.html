@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flowfield</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./style.css">
     <link rel="shortcut icon" href="/assets/logo_maximized.png" type="image/x-icon">
 
 </head>
@@ -12,6 +12,7 @@
     <a href="/index.html">
         <img src="/assets/back.png" alt="Back arrow" id="backArrow">
     </a>
+    
     <p id="debugInfo"></p>
 
     <div id="customisationMenu">
@@ -31,14 +32,17 @@
         <label for="btnShowDebuginfo">Show debug info:</label>
         <input type="checkbox" name="debug" id="btnShowDebuginfo">
         <br>
-        <p id="pToggleInfo">Press M to toggle this menu</p>
+        <p id="pToggleInfo"><b onclick="toggleCustomisationMenu()">Press M</b> to toggle this menu</p>
     </div>
+    <img id="customisationMenuIcon" src="./assets/customisationMenuIcon.png" alt="Icon">
+
 
     <canvas id="mainCanvas"></canvas>
     <script type="module" src="sketch.js"></script>
     <script type="module" src="lib/vec2.js"></script>
     <script type="module" src="particle.js"></script>
     <script type="module" src="simulation.js"></script>
+    <script src="uiScripts.js"></script>
 
 </body>
 </html>

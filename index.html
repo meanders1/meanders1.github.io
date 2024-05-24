@@ -1,33 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>smalbit.github.io</title>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="/styles.css">
     <link rel="shortcut icon" href="/assets/logo_maximized.png" type="image/x-icon">
 </head>
-<body>
-    <div id="projectsList">
 
-        <div id="circulize">
-            <div class="link">
-                <a class="projectLink" href="/circulize/">Circulize</a>
-            </div>
+<body>
+    <script src="/scripts.js"></script>
+    <div id="projectsSidebar">
+        <div id="projectsSidebarContent">
+            <p class="sidebarLink" id="sidebarCirculize">
+                <a href="/circulize/">Circulize</a>
+            </p>
+            <hr class="sidebarDivider">
+            <p class="sidebarLink" id="sidebarFlowfield">
+                <a href="/flowfield/">Flowfield</a>
+            </p>
+            <hr class="sidebarDivider">
+            <p class="sidebarLink" id="sidebarWoe">
+                <a href="/woe/">Word of Elements</a>
+            </p>
         </div>
-        <div id="flowfield">
-            <div class="link">
-                <a class="projectLink" href="/flowfield/">Flowfield</a>
-            </div>
-        </div>
-        <div id="wordOfElements">
-            <div class="link">
-                <a class="projectLink" href="/woe/">Word of Elements</a>
-            </div>
-        </div>
+    </div>
+    <div id="previewContainer">
+        <img class="previewImage" id="previewCirculize" src="./assets/screenshot_Circulize.png" alt="Preview of Circulize">
+        <img class="previewImage" id="previewFlowfield" src="./assets/screenshot_Flowfield.png" alt="Preview of Flowfield">
+        <img class="previewImage" id="previewWoe" src="./assets/screenshot_WordOfElements.png" alt="Preview of Word of Elements">
     </div>
 
 
 </body>
+
 </html>

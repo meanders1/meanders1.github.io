@@ -144,25 +144,6 @@ function setupUIScripts() {
 	updateSim();
 	updateBackgroundColor();
 	setImage();
-
-	window.onkeyup = (e) => {
-		let keynum;
-		if(window.event) {
-			keynum = e.keyCode;
-		} else if(e.which) {
-			keynum = e.which;
-		}
-
-		const key = String.fromCharCode(keynum).toLowerCase();
-		if(key == "m") {
-			const menuEl = document.getElementById("customisationMenu");
-			if(menuEl.style.display != "none") {
-				menuEl.style.display = "none";
-			} else {
-				menuEl.style.display = "block";
-			}
-		}
-	}
 }
 
 export { findCanvasSize, backgroundColor };
