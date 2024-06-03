@@ -110,28 +110,34 @@ class HTMLUtils {
     }
 }
 
-// From: https://gist.github.com/blixt/f17b47c62508be59987b
+// Inspired by: https://gist.github.com/blixt/f17b47c62508be59987b
 class Random {
     constructor(seed_) {
-        this.m_Seed = seed_ % 2147483647;
-        if (this.m_Seed <= 0) this.m_Seed += 2147483646;
+        this.setSeed(seed_);
     }
+
     /**
-     * Returns a pseudo-random value between 1 and 2^32 - 2.
+     * Returns a value between 1 and 2^32 - 2.
      */
     next() {
-        return (this.m_Seed = (this.m_Seed * 16807) % 2147483647);
+        this.seed = (this.seed * 97882) % 2147483647;
+        return this.seed;
     }
+    
     /**
-     * Returns a pseudo-random floating point number in range [0, 1).
+     * Returns a number in the range [0, 1>.
      */
     nextFloat() {
         return (this.next() - 1) / 2147483646;
     }
 
-    seed(seed_) {
-        this.m_Seed = seed_ % 2147483647;
-        if (this.m_Seed <= 0) this.m_Seed += 2147483646;
+    setSeed(seed_) {
+        if(typeof seed_ === "number" && !Number.isNaN(seed_)) {
+            this.seed = seed_ % 2147483647;
+            if (this.seed <= 0) this.seed += 2147483646;
+        } else {
+            this.seed = Math.random() * 2147483647;
+        }
     }
 }
 
