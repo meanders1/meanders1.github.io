@@ -1,17 +1,51 @@
+const projects = [
+    {
+        name: "Circulize",
+        address: "/circulize/",
+        previewImageSrc: "./assets/screenshot_Circulize.png"
+    },
+    {
+        name: "Flowfield",
+        address: "/flowfield/",
+        previewImageSrc: "./assets/screenshot_Flowfield.png"
+    },
+    {
+        name: "Word of Elements",
+        address: "/woe/",
+        previewImageSrc: "./assets/screenshot_WordOfElements.png"
+    },
+    {
+        name: "Cloth",
+        address: "/cloth/",
+        previewImageSrc: "./assets/screenshot_Cloth.png"
+    }
+];
+
 window.addEventListener("load", () => {
-    let projects = document.querySelectorAll(".sidebarLink");
-    let images = document.querySelectorAll(".previewImage");
-    for(let sidebarEl of projects) {
-        let id = sidebarEl.id;
-        let projectName = id.substring("sidebar".length);
-        let previewId = "preview" + projectName;
-        let img = document.getElementById(previewId);
+    const sidebar = document.getElementById("projectsSidebarContent");
+    for(let i = 0; i < projects.length; i++) {
+        const project = projects[i];
         
-        sidebarEl.addEventListener("mouseover", () => {
-            for(let image of images) {
-                image.style = "display: none;";
+        // Sidebar text
+        const sidebarText = document.createElement("p");
+        sidebarText.innerHTML = "<a href=\"" + project.address + "\">" + project.name + "</a>";
+        sidebarText.classList.add("sidebarLink");
+        sidebar.appendChild(sidebarText);
+        if(i < projects.length-1) {
+            const separator = document.createElement("hr");
+            separator.classList.add("sidebarDivider");
+            sidebar.appendChild(separator);
+        }
+
+        // Preview image
+        sidebarText.addEventListener("mouseover", () => {
+            const previewDiv = document.getElementById("previewContainer");
+            console.log("Mouseover triggered", previewDiv);  // Check if this is firing
+            if (previewDiv) {
+                previewDiv.style.backgroundImage = "url(" + project.previewImageSrc + ")";
+            } else {
+                console.error("Preview container not found!");
             }
-            img.style = "display: inline;";
         });
     }
 });
