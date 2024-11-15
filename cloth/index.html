@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloth</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <a href="/index.html">
+        <img src="/assets/back.png" alt="Back arrow" id="backArrow">
+    </a>
+    <canvas id="mainCanvas"></canvas>
+    <div id="menu">
+        <h3>Cloth</h3>
+        <p>Usage:</p>
+        <ul>
+            <li>Left click: drag node</li>
+            <li>Right click: cut connection</li>
+            <li>Shift + left click: Pan</li>
+            <li>Zoom/scroll: Zoom</li>
+        </ul>
+        <p style="padding:0; margin-bottom: 10px;">Cloth size:</p>
+        <label for="clothWidth">Width: </label>
+        <input type="number" min="0" max="1000" id="clothWidth" name="clothWidth" value="50" onchange="updateCloth()"> 
+        <br>
+        <label for="clothHeight">Height: </label>
+        <input type="number" min="0" max="1000" id="clothHeight" name="clothHeight" value="50" onchange="updateCloth()">
+        <p id="FPS" class="small"></p>
+    </div>
+
+    <img id="menuIcon" src="assets/menuIcon.png" alt="Menu Icon"></img>
+
+    <script src="main.js"></script>
+    <script src="physics.js"></script>
+    <script src="renderer.js"></script>
+    <script src="lib/vec2.js"></script>
+</body>
+</html>

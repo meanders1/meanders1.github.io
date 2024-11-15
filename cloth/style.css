@@ -1,0 +1,43 @@
+body {
+    margin: 0;
+    background-color: rgb(34, 34, 34);
+    overflow: hidden;
+}
+
+#backArrow {
+    margin: 20px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    width: 40px;
+    height: 40px;
+}
+
+#menu {
+    position: absolute;
+    top: 0%;
+    left: 100%;
+    transform: translateX(-100%);
+    color: white;
+    z-index: 1;
+    width: 200px;
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 10px;
+    border-radius: 10px;
+}
+
+#menuIcon {
+    padding: 20px;
+    position: absolute;
+    top: 0%;
+    left: 100%;
+    z-index: 2;
+    transform: translate(-100%);
+    width: 30px;
+}   
+
+.small {
+    padding: 0px;
+    margin: 0px;
+}
