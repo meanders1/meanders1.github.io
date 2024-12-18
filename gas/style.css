@@ -1,0 +1,30 @@
+body {
+    margin: 0;
+    background-color: rgb(34, 34, 34);
+    overflow: hidden;
+}
+
+#backArrow {
+    margin: 20px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    width: 40px;
+    height: 40px;
+}
+
+#debug {
+    padding: 10px;
+    position: absolute;
+    left: 100%;
+    top: 0%;
+    transform: translate(-100%, 0);
+    color: white;
+}
+
+
+#particleSizeText {
+    padding-top: 0px;
+    margin-top: 0px;
+}

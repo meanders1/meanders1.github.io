@@ -18,7 +18,12 @@ const projects = [
         name: "Cloth",
         address: "/cloth/",
         previewImageSrc: "./assets/screenshot_Cloth.png"
-    }
+    },
+    {
+        name: "Gas",
+        address: "/gas/",
+        previewImageSrc: "./assets/screenshot_Gas.png"
+    },
 ];
 
 window.addEventListener("load", () => {
